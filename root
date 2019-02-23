@@ -1,0 +1,3 @@
+@reboot /root/sys_scripts/update_system.sh
+0 4 * * mon /root/sys_scripts/update_system.sh
+0 0 * * * /root/sys_scripts/check_cron_changes.sh
