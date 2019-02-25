@@ -14,6 +14,7 @@ then
 	echo 	"DONE..."
 else
 	echo "TYPE THE USER NAME YOU WOULD LIKE TO CREARTE AND ADD TO SUDO GROUP"
+	exit 0
 fi
 
 
@@ -73,12 +74,12 @@ systemctl restart nginx
 echo "DONE..."
 
 #FILE MANEGEMENT
-mkdir /root/scripts
-chmod 700 scripts
-mv update_system.sh /root/scripts/
-mv check_cron_changes.sh /root/scripts/
-mv iptables_config.sh /root/scripts/
-mv change_hashsum.sh /root/scripts/
-mv server_config /root
-rm root
+#mkdir /root/scripts
+#chmod 700 scripts
+#mv update_system.sh /root/scripts/
+#mv check_cron_changes.sh /root/scripts/
+#mv iptables_config.sh /root/scripts/
+#mv change_hashsum.sh /root/scripts/
+#mv server_config /root
+#rm root
 echo "SERVER CONFIGURATION COMPLETED"
