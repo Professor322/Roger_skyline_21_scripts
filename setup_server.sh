@@ -22,8 +22,7 @@ fi
 echo "CHANGING NETWORK TO STATIC IP..."
 cat ifcfg-enp0s3 > /etc/sysconfig/network-scripts/ifcfg-enp0s3
 echo  "REBOOTING NETWORK ADAPTER..."
-ifdown	enp0s3 > /dev/null
-ifup	enp0s3 > /dev/null
+systemctl restart network 
 echo "NEW IP IS 192.168.20.7/30" > server_config
 
 
@@ -36,6 +35,7 @@ echo "NEW IP IS 192.168.20.7/30" > server_config
 #SETTING FIREWALL
 echo "SETTING FIREWALL..."
 echo "IPTABLES CONFIG..."
+yum install iptables.services -y > /dev/null
 systemctl stop firewalld.service > /dev/null
 systemctl disable firewalld.service
 sh iptables_config.sh
