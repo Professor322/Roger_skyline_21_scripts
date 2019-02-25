@@ -20,17 +20,17 @@ fi
 
 #NETWORK CONFIG
 echo "CHANGING NETWORK TO STATIC IP..."
-ifcfg-enp0s3 > /etc/sysconfig/network-scripts/ifcfg-enp0s3
+cat ifcfg-enp0s3 > /etc/sysconfig/network-scripts/ifcfg-enp0s3
 echo  "REBOOTING NETWORK ADAPTER..."
-ifdown	enp0s3
-ifup	enp0s3
+ifdown	enp0s3 > /dev/null
+ifup	enp0s3 > /dev/null
 echo "NEW IP IS 192.168.20.7/30" > server_config
 
 
-#SSH CONFIG
-echo "CHANGING SSH CONFIGURATION..."
-sshd_config > /etc/ssh/sshd_config
-echo "NEW SSH PORT IS 50683" >> server_config
+#SSH CONFIG todo
+#echo "CHANGING SSH CONFIGURATION..."
+#sshd_config > /etc/ssh/sshd_config
+#echo "NEW SSH PORT IS 50683" >> server_config
 
 
 #SETTING FIREWALL
@@ -41,7 +41,7 @@ echo "DONE.."
 echo "FAIL2BAN..."
 yum install epel-release -y > /dev/null
 yum install fail2ban -y > /dev/null
-systemctl start fail2ban
+systemctl start fail2ban > /dev/null
 systemctl enable fail2ban > /dev/null
 echo "DONE..."
 
@@ -55,17 +55,17 @@ echo "DONE..."
 
 #INSTALLING NGINX
 echo "INSTALLING NGINX..."
-yum -y install nginx
-systemctl start nginx
+yum -y install nginx > /dev/null
+systemctl start nginx > /dev/null
 systemctl enable nginx > /dev/null
 echo "DONE..."
 echo "SETTING SSL..."
 mkdir /etc/nginx/ssl
-chmod 700
+chmod 700 /etc/nginx/ssl
 mkdir /etc/nginx/ssl/private
-chmod 700
+chmod 700 /etc/nginx/ssl/private
 mkdir /etc/nginx/ssl/certs
-chmod 700
+chmod 700 /etc/nginx/ssl/certs
 sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/private/nginx-selfsigned.key -out /etc/nginx/ssl/certs/nginx-selfsigned.crt
 openssl dhparam -out /etc/nginx/ssl/certs/dhparam.pem 2048 > /dev/null
 cat nginx.conf > /etc/nginx/nginx.conf
@@ -74,12 +74,12 @@ systemctl restart nginx
 echo "DONE..."
 
 #FILE MANEGEMENT
-#mkdir /root/scripts
-#chmod 700 scripts
-#mv update_system.sh /root/scripts/
-#mv check_cron_changes.sh /root/scripts/
-#mv iptables_config.sh /root/scripts/
-#mv change_hashsum.sh /root/scripts/
+#mkdir /root/sys_scripts
+#chmod 700 sys_scripts
+#mv update_system.sh /root/sys_scripts/
+#mv check_cron_changes.sh /root/sys_scripts/
+#mv iptables_config.sh /root/sys_scripts/
+#mv change_hashsum.sh /root/sys_scripts/
 #mv server_config /root
 #rm root
 echo "SERVER CONFIGURATION COMPLETED"
