@@ -59,17 +59,17 @@ yum -y install nginx > /dev/null
 systemctl start nginx > /dev/null
 systemctl enable nginx > /dev/null
 echo "DONE..."
-echo "SETTING SSL..."
-mkdir /etc/nginx/ssl
-chmod 700 /etc/nginx/ssl
-mkdir /etc/nginx/ssl/private
-chmod 700 /etc/nginx/ssl/private
-mkdir /etc/nginx/ssl/certs
-chmod 700 /etc/nginx/ssl/certs
-sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/private/nginx-selfsigned.key -out /etc/nginx/ssl/certs/nginx-selfsigned.crt
-openssl dhparam -out /etc/nginx/ssl/certs/dhparam.pem 2048 > /dev/null
-cat nginx.conf > /etc/nginx/nginx.conf
-cat ssl.conf > /etc/nginx/conf.d/ssl.conf
+#echo "SETTING SSL..."
+#mkdir /etc/nginx/ssl
+#chmod 700 /etc/nginx/ssl
+#mkdir /etc/nginx/ssl/private
+#chmod 700 /etc/nginx/ssl/private
+#mkdir /etc/nginx/ssl/certs
+#chmod 700 /etc/nginx/ssl/certs
+#sudo openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/private/nginx-selfsigned.key -out /etc/nginx/ssl/certs/nginx-selfsigned.crt
+#openssl dhparam -out /etc/nginx/ssl/certs/dhparam.pem 2048 > /dev/null
+#cat nginx.conf > /etc/nginx/nginx.conf
+#cat ssl.conf > /etc/nginx/conf.d/ssl.conf
 systemctl restart nginx
 echo "DONE..."
 
