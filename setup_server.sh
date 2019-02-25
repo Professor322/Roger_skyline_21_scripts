@@ -36,6 +36,7 @@ echo "NEW IP IS 192.168.20.7/30" > server_config
 #SETTING FIREWALL
 echo "SETTING FIREWALL..."
 echo "IPTABLES CONFIG..."
+systemctl stop firewalld.service > /dev/null
 sh iptables_config.sh
 echo "DONE.."
 echo "FAIL2BAN..."
