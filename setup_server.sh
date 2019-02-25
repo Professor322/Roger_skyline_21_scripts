@@ -8,7 +8,7 @@ then
 	fi
 	echo  "ADDING NEW USER..."
 	echo  "ENTER NEW PASSWORD:"
-	passwd $1
+	passwd $1 2> /dev/null
 	echo  "MAKING HIM SUDO..."
 	usermod -aG wheel $1
 	echo 	"DONE..."
@@ -27,7 +27,7 @@ echo "NEW IP IS 192.168.20.7/30" > server_config
 
 
 #SSH CONFIG 
-#echo "CHANGING SSH PORT..."
+echo "CHANGING SSH PORT..."
 sshd_config > /etc/ssh/sshd_config
 echo "NEW SSH PORT IS 50683" >> server_config
 
@@ -37,7 +37,7 @@ echo "SETTING FIREWALL..."
 echo "IPTABLES CONFIG..."
 yum install iptables.services -y > /dev/null
 systemctl stop firewalld.service > /dev/null
-systemctl disable firewalld.service
+systemctl disable firewalld.service > /dev/null
 sh iptables_config.sh
 systemctl enable iptables.service > /dev/null
 systemctl restart iptables.service > /dev/null
@@ -45,7 +45,6 @@ echo "DONE.."
 echo "FAIL2BAN..."
 yum install epel-release -y > /dev/null
 yum install fail2ban -y > /dev/null
-systemctl start fail2ban > /dev/null
 systemctl enable fail2ban > /dev/null
 echo "DONE..."
 
@@ -53,7 +52,7 @@ echo "DONE..."
 #SETTING CRONTAB
 echo "SETTING CRONTAB..."
 crontab -r
-cat root | crontab -
+cat root | crontab - > /dev/null
 echo "DONE..."
 
 
