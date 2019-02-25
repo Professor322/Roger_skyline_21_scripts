@@ -26,10 +26,10 @@ systemctl restart network
 echo "NEW IP IS 192.168.20.7/30" > server_config
 
 
-#SSH CONFIG todo
-#echo "CHANGING SSH CONFIGURATION..."
-#sshd_config > /etc/ssh/sshd_config
-#echo "NEW SSH PORT IS 50683" >> server_config
+#SSH CONFIG 
+#echo "CHANGING SSH PORT..."
+sshd_config > /etc/ssh/sshd_config
+echo "NEW SSH PORT IS 50683" >> server_config
 
 
 #SETTING FIREWALL
