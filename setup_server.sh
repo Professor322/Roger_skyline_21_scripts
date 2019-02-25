@@ -37,7 +37,10 @@ echo "NEW IP IS 192.168.20.7/30" > server_config
 echo "SETTING FIREWALL..."
 echo "IPTABLES CONFIG..."
 systemctl stop firewalld.service > /dev/null
+systemctl disable firewalld.service
 sh iptables_config.sh
+systemctl enable iptables.service > /dev/null
+systemctl restart iptables.service > /dev/null
 echo "DONE.."
 echo "FAIL2BAN..."
 yum install epel-release -y > /dev/null
