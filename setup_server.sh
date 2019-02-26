@@ -12,7 +12,7 @@ then
 		exit 0
 	fi
 	printf  "ADDING NEW USER...\n"
-	printf  "ENTER NEW PASSWORD:"
+	printf  "ENTER NEW PASSWORD:\n"
 	passwd $1 2> /dev/null
 	printf  "MAKING HIM SUDO...\n"
 	usermod -aG wheel $1
@@ -36,14 +36,14 @@ printf "${GREEN}DONE...${GRAY}\n\n"
 #SSH CONFIG 
 printf "CHANGING SSH PORT...\n"
 sshd_config > /etc/ssh/sshd_config
-printf "NEW SSH PORT IS 50683\n" >> server_config
+printf "NEW SSH PORT IS $(cat sshd_config | grep -m 1 Port | awk -F ' ' '{print $2}')\n" >> server_config
 printf "${GREEN}DONE...${GRAY}\n\n"
 
 
 #SETTING FIREWALL
 printf "SETTING FIREWALL...\n"
 printf "IPTABLES CONFIG...\n"
-yum install iptables.services -y > /dev/null
+yum install iptables-services -y > /dev/null
 systemctl stop firewalld.service > /dev/null
 systemctl disable firewalld.service > /dev/null
 sh iptables_config.sh
@@ -60,7 +60,7 @@ printf "${GREEN}DONE...${GRAY}\n\n"
 #SETTING CRONTAB
 printf "SETTING CRONTAB...\n"
 crontab -r
-cat root | crontab - > /dev/null
+cat root | crontab - 2> /dev/null
 printf "${GREEN}DONE...${GRAY}\n\n"
 
 
