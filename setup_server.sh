@@ -13,7 +13,7 @@ then
 	fi
 	printf  "ADDING NEW USER...\n"
 	printf  "ENTER NEW PASSWORD:\n"
-	passwd $1 2> /dev/null
+	passwd $1 
 	printf  "MAKING HIM SUDO...\n"
 	usermod -aG wheel $1
 	printf 	" ${GREEN}DONE...${GRAY}\n\n"
@@ -78,7 +78,7 @@ chmod 700 /etc/nginx/ssl/private
 mkdir /etc/nginx/ssl/certs
 chmod 700 /etc/nginx/ssl/certs
 openssl req -x509 -nodes -days 365 -newkey rsa:2048 -keyout /etc/nginx/ssl/private/nginx-selfsigned.key -out /etc/nginx/ssl/certs/nginx-selfsigned.crt
-printf "DHPARAM KEY...\n"
+printf "DHPARAM KEY...IT MIGHT TAKE A WHILE...\n"
 openssl dhparam -out /etc/nginx/ssl/certs/dhparam.pem 2048 2> /dev/null
 cat nginx.conf > /etc/nginx/nginx.conf
 cat ssl.conf > /etc/nginx/conf.d/ssl.conf
