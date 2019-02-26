@@ -18,7 +18,7 @@ then
 	usermod -aG wheel $1
 	echo 	" ${GREEN}DONE...${GRAY}"
 else
-	echo "${RED}TYPE THE USER NAME YOU WOULD LIKE TO CREARTE AND ADD TO SUDO GROUP${GRAY}"
+	echo "${RED}TYPE THE USER NAME YOU WOULD LIKE TO CREATE AND ADD TO SUDO GROUP${GRAY}"
 	exit 0
 fi
 
@@ -28,7 +28,8 @@ echo "CHANGING NETWORK TO STATIC IP..."
 cat ifcfg-enp0s3 > /etc/sysconfig/network-scripts/ifcfg-enp0s3
 echo  "REBOOTING NETWORK ADAPTER..."
 systemctl restart network 
-echo "NEW IP IS 192.168.20.7/30" > server_config
+echo "NEW IP IS $(cat ifcfg-enp0s3 | grep IPADDR | awk -F '=' '{print $2}')" > server_config
+echo "MASK IS $(cat ifcfg-enp0s3 | grep MASK | awk -F '=' '{print $2}')" >> server_config
 echo "${GREEN}DONE...${GRAY}"
 
 
