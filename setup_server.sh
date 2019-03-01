@@ -35,7 +35,7 @@ printf "${GREEN}DONE...${GRAY}\n\n"
 
 #SSH CONFIG 
 printf "CHANGING SSH PORT...\n"
-sshd_config > /etc/ssh/sshd_config
+cat sshd_config > /etc/ssh/sshd_config
 printf "NEW SSH PORT IS $(cat sshd_config | grep -m 1 Port | awk -F ' ' '{print $2}')\n" >> server_config
 printf "${GREEN}DONE...${GRAY}\n\n"
 
