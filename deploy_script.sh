@@ -1,4 +1,6 @@
-
+GREEN='\033[0;32m'      
+GRAY='\033[0;37m'       
+CYAN='\033[0;36m' 
 #!/bin/bash
 
 # Call this file with `bash ./project-create.sh project-name [service-name]`
@@ -48,17 +50,19 @@ cd hooks || exit
 sudo tee post-receive <<EOF
 #!/bin/bash
 # The production directory
-WWW="${WWW}"
+WWW="/usr/share/nginx/html/"
 # A temporary directory for deployment
-TMP="${TMP}"
-# The Git rep 
-GIT="${GIT}"
-mkdir -p \$TMP
-git --work-tree=\$TMP --git-dir=\$GIT checkout -f
-cd \$TMP || exit
-rm -rf \$WWW
-mv \$TMP \$WWW
+TMP="/home/vlegros/tmp/"
+# The Git rep
+GIT="/home/vlegros/.git/"
+mkdir -p $TMP
+git --work-tree=$TMP --git-dir=$GIT checkout -f
+cd $TMP || exit
+rm -rf $WWW\*
+mv ./* $WWW
+sudo systemctl restart nginx
 EOF
 
 # make it executable
 sudo chmod +x post-receive
+print "${GREEN}local repository is created${GREY}\n"
